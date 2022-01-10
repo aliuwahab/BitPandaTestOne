@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\APIsBaseController;
+use App\Http\Resources\UserProfileResource;
 use App\Models\User;
 use BitPanda\UserProfile\UserProfileRepositoryInterface;
 use Illuminate\Http\Request;
@@ -26,9 +27,10 @@ class UserController extends APIsBaseController
     public function index(Request $request): Response
     {
         $filters = $request->all();
+
         $filteredUsers = $this->userProfileRepositoryInterface->filterBy($filters);
 
-        return $this->success($filteredUsers, 200, 'Users retrieved successfully!');
+        return $this->success(UserProfileResource::collection($filteredUsers), 200, 'Users retrieved successfully!');
     }
 
     /**
@@ -39,7 +41,7 @@ class UserController extends APIsBaseController
      */
     public function show(User $user)
     {
-        //
+        return $this->success($user, 200, 'User retrieved successfully!');
     }
 
 
@@ -52,7 +54,8 @@ class UserController extends APIsBaseController
      */
     public function update(Request $request, User $user)
     {
-        //
+
+        return $this->success($user, 200, 'User updated successfully!');
     }
 
     /**

@@ -24,6 +24,10 @@ class UserDetail extends Model
         'phone_number',
     ];
 
+    protected $casts = [
+        'active' => 'bool'
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -31,6 +35,6 @@ class UserDetail extends Model
 
     public function nationality(): BelongsTo
     {
-        return $this->belongsTo(Country::class);
+        return $this->belongsTo(Country::class, 'citizenship_country_id', 'id');
     }
 }
