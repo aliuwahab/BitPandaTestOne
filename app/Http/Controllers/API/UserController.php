@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\APIsBaseController;
 use App\Http\Resources\UserProfileResource;
 use App\Models\User;
+use BitPanda\Exceptions\NotAValidFilterKeyException;
 use BitPanda\UserProfile\UserProfileRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -28,7 +29,11 @@ class UserController extends APIsBaseController
     {
         $filters = $request->all();
 
-        $filteredUsers = $this->userProfileRepositoryInterface->filterBy($filters);
+        try {
+            $filteredUsers = $this->userProfileRepositoryInterface->filterBy($filters);
+        } catch (NotAValidFilterKeyException $exception) {
+            return $this->failure([], 400, $exception->getMessage());
+        }
 
         return $this->success(UserProfileResource::collection($filteredUsers), 200, 'Users retrieved successfully!');
     }
@@ -52,8 +57,13 @@ class UserController extends APIsBaseController
      * @param User $user
      * @return Response
      */
-    public function update(Request $request, User $user)
+    public function update(User $user, Request $request)
     {
+        if ($user->profile == false) {
+            return $this->failure([], 401, "User does not have details to update");
+        }
+
+        $this->userProfileRepositoryInterface->update($user, $request->all());
 
         return $this->success($user, 200, 'User updated successfully!');
     }
@@ -66,6 +76,12 @@ class UserController extends APIsBaseController
      */
     public function destroy(User $user)
     {
-        //
+        if ($user->profile) {
+            return $this->failure([], 401, "You cannot delete a user with associated user details");
+        }
+
+        $this->userProfileRepositoryInterface->delete($user);
+
+        return $this->success($user, 200, 'User updated successfully!');
     }
 }

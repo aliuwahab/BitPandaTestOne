@@ -15,12 +15,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+Route::get('/users', [UserController::class, 'index']);
+Route::get('/users/{user}', [UserController::class, 'show']);
+Route::patch('/users/{user}', [UserController::class, 'update']);
+Route::delete('/users/{user}', [UserController::class, 'destroy']);
+
+
+
+//TODO:: This would have been used to get the authenticated user. But Authentication is not implemented
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-
-
-Route::get('/users/{active?}/{nationality?}', [UserController::class, 'index']);
-Route::patch('/users/{user}', [UserController::class, 'update']);
-Route::delete('/users/{user}', [UserController::class, 'destroy']);
