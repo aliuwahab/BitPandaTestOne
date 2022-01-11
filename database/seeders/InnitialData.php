@@ -13,14 +13,6 @@ class InnitialData extends Seeder
      */
     public function run()
     {
-        $errors = [];
-
-        ini_set('memory_limit', '-1');
-
-        try {
-            \DB::unprepared( file_get_contents( "storage/app/shared/database.sql" ) );
-        } catch (\Exception $exception) {
-            $errors[] = $exception->getMessage();
-        }
+        \DB::unprepared( file_get_contents( "storage/app/shared/database.sql" ) );
     }
 }
