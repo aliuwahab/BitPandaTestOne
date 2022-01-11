@@ -60,7 +60,7 @@ class UserController extends APIsBaseController
     public function update(User $user, Request $request)
     {
         if ($user->profile == false) {
-            return $this->failure([], 401, "User does not have details to update");
+            return $this->failure([], 405, "User does not have details to update");
         }
 
         $this->userProfileRepositoryInterface->update($user, $request->all());
@@ -77,11 +77,11 @@ class UserController extends APIsBaseController
     public function destroy(User $user)
     {
         if ($user->profile) {
-            return $this->failure([], 401, "You cannot delete a user with associated user details");
+            return $this->failure([], 405, "You cannot delete a user with associated user details");
         }
 
         $this->userProfileRepositoryInterface->delete($user);
 
-        return $this->success($user, 200, 'User updated successfully!');
+        return $this->success([], 200, 'User updated successfully!');
     }
 }

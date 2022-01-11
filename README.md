@@ -13,5 +13,5 @@ This is a simple project given as part of the hiring process.
 ##
 
 1. `GET` REQUEST: Filter Endpoint: http://127.0.0.1:8000/api/users?status=1&nationality=AT The filter parameters are optional. You can be optional filter by status or nationality
-2. `PATCH` REQUEST:  Update Users:  http://127.0.0.1:8000/api/users/2     You can post any of the following fields with their values: `user_id, citizenship_country_id, first_name, last_name, phone_number` to update a user details
+2. `PATCH` REQUEST:  Update Users:  http://127.0.0.1:8000/api/users/2     You can post any of the following fields with their values: `citizenship_country_id, first_name, last_name, phone_number` to update a user details
 3. `DELETE` REQUEST: Delete a user without user details record: http://127.0.0.1:8000/api/users/60

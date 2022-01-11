@@ -19,7 +19,7 @@ class CreateUserDetailsTable extends Migration
             $table->foreignId('citizenship_country_id')->constrained('countries')->cascadeOnDelete();
             $table->string('first_name', 90);
             $table->string('last_name', 90);
-            $table->string('phone_number', 14);
+            $table->string('phone_number', 50);
             $table->timestamps();
         });
     }
