@@ -11,7 +11,7 @@ This is a simple project given as part of the hiring process of BitPanda.
 In the root of project, run `vendor/bin/phpunit `
 
 ## Set Up
-1. Save `.env.example` as `.env`
+1. If there is no `.env` already, then Save `.env.example` as `.env`
 2. Create a database in your local mysql server call  `bitpanda_test_one_db` in your mysql local server (you can use tools like sequel pro or mysql workbench to make it easier)
 3. Run Migrations `php artisan migrate` in the root of project folder.
 4. Run Seed `php artisan db:seed` in the root of project folder.
